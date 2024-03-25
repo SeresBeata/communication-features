@@ -20,10 +20,22 @@ const App = () => {
     }
   };
 
+  //create async function to take a photo
+  const takePhoto = async () => {
+    let permissions = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissions?.granted) {
+      let result = await ImagePicker.launchCameraAsync();
+
+      if (!result.canceled) setImage(result.assets[0]);
+      else setImage(null);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Button title="Pick an image from the library" onPress={pickImage} />
-      <Button title="Take a photo" />
+      <Button title="Take a photo" onPress={takePhoto} />
       {/* Use logical AND ( && ) operator to display the image as an Image element, if there is a picked image, otherwise display nothing */}
       {image && (
         <Image
