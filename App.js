@@ -4,6 +4,9 @@ import { useState } from 'react';
 //import ImagePicker to allow users to select a photo from their library or take a new photo.
 import * as ImagePicker from 'expo-image-picker';
 
+//import MediaLibrary to save Photos captured using a device’s camera with the ImagePicker
+import * as MediaLibrary from 'expo-media-library';
+
 const App = () => {
   //create state variable
   const [image, setImage] = useState(null);
@@ -27,8 +30,15 @@ const App = () => {
     if (permissions?.granted) {
       let result = await ImagePicker.launchCameraAsync();
 
-      if (!result.canceled) setImage(result.assets[0]);
-      else setImage(null);
+      if (!result.canceled) {
+        let mediaLibraryPermissions =
+          await MediaLibrary.requestPermissionsAsync();
+
+        if (mediaLibraryPermissions?.granted)
+          await MediaLibrary.saveToLibraryAsync(result.assets[0].uri);
+
+        setImage(result.assets[0]);
+      } else setImage(null);
     }
   };
 
