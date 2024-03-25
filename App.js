@@ -1,7 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 const App = () => {
-  return <View style={styles.container}>Hello World!</View>;
+
+  return (
+    <View style={styles.container}>
+      <Button title="Pick an image from the library" />
+      <Button title="Take a photo" />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
