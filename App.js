@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { useState } from 'react';
+
+//import ImagePicker to allow users to select a photo from their library or take a new photo.
+import * as ImagePicker from 'expo-image-picker';
 
 const App = () => {
+  //create state variable
+  const [image, setImage] = useState(null);
 
   return (
     <View style={styles.container}>
